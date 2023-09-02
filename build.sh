@@ -95,7 +95,7 @@ _title "Copying files to build directory..."
 try rsync -xa --exclude '*.js' --exclude '*.js.map' --exclude '*.zip' "${source_dir}/" ./
 try rsync -xa "${source_dir}/3rdparty/" ./3rdparty/
 try rsync -xa "${source_dir}/bonus/" ./bonus/
-try cp "${source_dir}/server/server.min.js" ./
+# try cp "${source_dir}/server/server.min.js" ./
 try cp "${source_dir}/externs.js" ./
 try cp "${source_dir}/exports.js" ./
 
@@ -206,9 +206,10 @@ cd ..
 mkdir stage2
 cd stage2
 
-cp ../stage1/min.css ../stage1/min.js ../stage1/index.min.html ../stage1/server.min.js ./
+# cp ../stage1/min.css ../stage1/min.js ../stage1/index.min.html ../stage1/server.min.js ./
+cp ../stage1/min.css ../stage1/min.js ../stage1/index.min.html ./
 
-mv server.min.js server.js
+# mv server.min.js server.js
 
 
 _title "Embedding files into final HTML..."
@@ -229,7 +230,8 @@ cat index.min.html | sed \
 
 _title "Creating ZIP files..."
 
-try zip -9 ${zip_prefix}.zip index.html server.js
+# try zip -9 ${zip_prefix}.zip index.html server.js
+try zip -9 ${zip_prefix}.zip index.html
 
 
 _title "Running advzip..."
