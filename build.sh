@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name="js13k2022"
+name="js13k2023"
 tmp=`readlink -f "$0"`
 dir=`dirname $tmp`
 source_dir="${dir}/src"
