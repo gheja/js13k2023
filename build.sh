@@ -87,7 +87,7 @@ mkdir stage1/3rdparty
 cd stage1
 
 now=`date +%Y%m%d_%H%M%S`
-now2=`date '+%Y-%m-%d %H:%M:%S'`
+now2=`date '+%Y-%m-%d %H:%M:%S %:z'`
 zip_prefix="${name}_${now}"
 
 _title "Copying files to build directory..."
