@@ -1,6 +1,9 @@
+let _game
+
 function init()
 {
-    console.log("init")
+    _game = new Game()
+    _game.init()
 }
 
 window.addEventListener("load", init)
