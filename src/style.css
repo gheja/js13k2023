@@ -1,12 +1,13 @@
 /* palette from https://lospec.com/palette-list/lost-century - thanks! */
 /* [ candara, corbel ] [ 'segoe print', georgia ] */
+
 html,
 body
 {
     margin: 0;
     padding: 0;
-    background: #d2c9a5;
-    color: #574852;
+    background: #574852;
+    color: #ab9b8e;
     font-family: candara, corbel;
     font-size: 25pt;
 }
