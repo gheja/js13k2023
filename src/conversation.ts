@@ -4,12 +4,7 @@ class Conversation
 
     speakScroll(span: HTMLSpanElement)
     {
-        let shown: number
-
-        console.log(span)
-        console.log(span.dataset["shown"])
-
-        shown = parseInt(span.dataset["shown"])
+        let shown: number = parseInt(span.dataset["shown"])
         shown +=1
         span.dataset["shown"] = shown.toString()
 
