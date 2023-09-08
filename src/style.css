@@ -31,12 +31,6 @@ body
     overflow: hidden;
 }
 
-/* debug */
-#container:hover
-{
-    background: #00000020;
-}
-
 @media (max-aspect-ratio: 16/9)
 {
     body
@@ -102,3 +96,7 @@ body
 {
     opacity: 0;
 }
+
+
+/* debug */
+/* #container:hover { background: #00000020 } */
