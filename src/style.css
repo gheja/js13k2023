@@ -19,6 +19,12 @@ body
     color: #847875;
 }
 
+.body-map
+{
+    background: #d2c9a5;
+    color: #847875;
+}
+
 *
 {
     cursor: default;

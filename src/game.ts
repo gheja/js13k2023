@@ -32,16 +32,13 @@ class Game
             [ "you", "sit amet" ],
             [ "king", "sure... sure..." ],
             [ "", "*nods*"],
-            [ "you", "sit amet" ],
-            [ "king", "sure... sure..." ],
-            [ "", "*nods*"],
-            [ "you", "sit amet" ],
-            [ "king", "sure... sure..." ],
-            [ "", "*nods*"],
-            [ "you", "sit amet" ],
-            [ "king", "sure... sure..." ],
-            [ "", "*nods*"],
         ])
+    }
+
+    startGame()
+    {
+        this.state = STATE_MAP
+        this.setScreen("map")
     }
 
     onSetReadyToProceed()
@@ -71,7 +68,7 @@ class Game
         }
         else if (this.state == STATE_INTRO)
         {
-            console.log("go")
+            this.startGame()
         }
     }
 
