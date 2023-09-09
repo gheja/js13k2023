@@ -30,6 +30,8 @@ class Conversation
 
         var a = this.linesLeft.shift()
         this.addSpeakText(a[0], a[1])
+
+        // so it'll be always scrolled to the end
         getElement("conversation").scrollBy(0, 10000)
     }
 
