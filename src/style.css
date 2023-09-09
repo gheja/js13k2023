@@ -7,15 +7,16 @@ body
     margin: 0;
     padding: 0;
     background: #574852;
-    color: #ab9b8e;
+    color: #000000aa;
     font-family: candara, corbel;
-    font-size: 5.33vh;
-    transition: all 0.5s;
+    font-size: min(5.33vh, 3vw);
+    transition: background-color 0.5s, color 0.5s;
 }
 
-.intro
+.body-conversation
 {
-    background: #847875;
+    background: #ab9b8e;
+    color: #847875;
 }
 
 *
@@ -23,42 +24,19 @@ body
     cursor: default;
 }
 
-#container
+#screens
 {
-    margin: auto;
-    aspect-ratio: 16/9;
-    height: 100vh;
-    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
-@media (max-aspect-ratio: 16/9)
-{
-    body
-    {
-        font-size: 3vw;
-    }
-    #container
-    {
-        height: auto;
-        width: 100vw;
-    }
-}
-
-#load_screen
+#loader
 {
     text-align: center;
     padding-top: 5rem;
-}
-
-#loaded
-{
-    display: none;
-    animation: blink 1s infinite;
-}
-
-#game
-{
-    display: none;
 }
 
 @keyframes blink
@@ -70,14 +48,21 @@ body
     100% { opacity: 1; }
 }
 
+#conversation
+{
+    overflow: hidden;
+    height: 100%;
+}
+
 #conversation > div
 {
     margin: 0.3rem;
+    padding: 0.1rem;
 }
 
 .s
 {
-    background: #00000040;
+    background: #ffffff22;
 }
 
 .s-you
@@ -97,6 +82,14 @@ body
     opacity: 0;
 }
 
+#click-to-continue
+{
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    animation: blink 2s infinite;
+}
 
 /* debug */
 /* #container:hover { background: #00000020 } */

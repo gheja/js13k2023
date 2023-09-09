@@ -24,12 +24,13 @@ class Conversation
     {
         if (this.linesLeft.length == 0)
         {
-            // TODO: conversation finished, do a callback
+            _game.onSetReadyToProceed()
             return
         }
 
         var a = this.linesLeft.shift()
         this.addSpeakText(a[0], a[1])
+        getElement("conversation").scrollBy(0, 10000)
     }
 
     addSpeakText(speaker: string, text: string)
