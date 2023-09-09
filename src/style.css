@@ -24,8 +24,9 @@ body
     cursor: default;
 }
 
-#screens
+#screens > div
 {
+    display: none;
     position: fixed;
     top: 0;
     right: 0;
