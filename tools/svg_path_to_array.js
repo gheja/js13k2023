@@ -160,6 +160,14 @@ function convert()
     scales[0] = resolution / (max_coordinates[0] - min_coordinates[0])
     scales[1] = resolution / (max_coordinates[1] - min_coordinates[1])
 
+    // override with the final parameters for the map, if checked
+    if (document.getElementById("final_map_parameters").checked)
+    {
+        resolution = 1000
+        scales = [ 5.223941709335997, 9.759621403204987 ]
+        pads = [ -24.734057999999965, -14.742199000000014 ]
+    }
+
     let points2 = []
     for (i in points)
     {
