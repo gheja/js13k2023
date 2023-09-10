@@ -13,15 +13,15 @@ function convert()
     let position = [ 0, 0 ]
     let draw = false
     let points = []
-    let scale = 10
-    let pad = [ 15, 215 ]
 
+    // clean up the input
     s = input.value.replaceAll("\n", "")
     s = s.replaceAll(/\s+/g, " ")
     s = s.trim()
 
     a = s.split(" ")
 
+    // process the path
     nextMode = "L"
     mode = ""
 
@@ -37,8 +37,15 @@ function convert()
         if (value == "m" || value == "M" || value == "l" || value == "L" || value == "h" || value == "H" || value == "v" || value == "V")
         {
             mode = value
+            continue
         }
-        else if (value.match(/^-?\d+\.\d+,-?\d+\.\d+$/))
+        else if (value == "z" || value == "Z")
+        {
+            points.push([ points[0][0], points[0][1] ])
+            // multiple paths are not supported so leave the processing here
+            break
+        }
+        else if (value.match(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/))
         {
             c = value.split(",")
             p[0] = parseFloat(c[0])
@@ -62,7 +69,7 @@ function convert()
         {
             position[0] += p[0]
             position[1] += p[1]
-            nextMode = "L"
+            nextMode = "l"
             draw = false
         }
         else if (mode == "M")
@@ -105,17 +112,102 @@ function convert()
 
         if (draw)
         {
-            points.push([ Math.round(position[0] * scale + pad[0]), Math.round(position[1] * scale + pad[1]) ])
+            // points.push([ Math.round(position[0] * scale + pad[0]), Math.round(position[1] * scale + pad[1]) ])
+            points.push([ position[0], position[1] ])
         }
 
-        console.log([ mode, p ])
+        // console.log([ mode, p ])
     }
 
+    let i
+    let min_coordinates = [ 0, 0 ]
+    let max_coordinates = [ 0, 0 ]
+    let pads = [ 0, 0 ]
+    let scales = [ 1, 1 ]
+    // var resolution = 1000 // max coordinate, 0..resolution, including the lower and upper bounds
+    var resolution = parseInt(document.getElementById("resolution").value)
+
+    // find the bounding box
+    min_coordinates[0] = points[0][0]
+    min_coordinates[1] = points[0][1]
+    max_coordinates[0] = points[0][0]
+    max_coordinates[1] = points[0][1]
+
+    for (i in points)
+    {
+        if (points[i][0] < min_coordinates[0])
+        {
+            min_coordinates[0] = points[i][0]
+        }
+        if (points[i][1] < min_coordinates[1])
+        {
+            min_coordinates[1] = points[i][1]
+        }
+        if (points[i][0] > max_coordinates[0])
+        {
+            max_coordinates[0] = points[i][0]
+        }
+        if (points[i][1] > max_coordinates[1])
+        {
+            max_coordinates[1] = points[i][1]
+        }
+    }
+
+    // pad and scale the coordinates
+    pads[0] = 0 - min_coordinates[0]
+    pads[1] = 0 - min_coordinates[1]
+
+    scales[0] = resolution / (max_coordinates[0] - min_coordinates[0])
+    scales[1] = resolution / (max_coordinates[1] - min_coordinates[1])
+
+    let points2 = []
+    for (i in points)
+    {
+        points2.push([ Math.round((points[i][0] + pads[0]) * scales[0]),  Math.round((points[i][1] + pads[1]) * scales[1]) ])
+    }
+
+    // assemble the output
     let t = ""
-    for (a of points)
+    for (a of points2)
     {
         t += a[0] + "," + a[1] + ", "
     }
 
     document.getElementById("output").value = t
+}
+
+function drawArray(arr)
+{
+    /** @type HTMLCanvasElement */ let canvas = document.getElementById("canvas1")
+    /** @type CanvasRenderingContext2D */ let ctx  = canvas.getContext("2d")
+
+    canvas.width = 1000
+    canvas.height = 1000
+
+    ctx.clearRect(0, 0, 1000, 1000)
+    ctx.beginPath()
+
+    let i
+    ctx.moveTo(arr[0], arr[1])
+    for (i=2; i<arr.length; i+=2)
+    {
+        ctx.lineTo(arr[i], arr[i + 1])
+    }
+    // ctx.closePath()
+
+    ctx.strokeStyle = "2px solid #000"
+    ctx.fillStyle = "#ccc"
+    ctx.stroke()
+    ctx.fill()
+}
+
+function drawOutput()
+{
+    let s = document.getElementById("output").value
+    s = s.replaceAll(" ", "")
+    s = s.replaceAll("\n", "")
+
+    let arr = s.split(",")
+
+    drawArray(arr)
 }
