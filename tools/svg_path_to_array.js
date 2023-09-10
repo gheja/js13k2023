@@ -176,7 +176,7 @@ function convert()
     document.getElementById("output").value = t
 }
 
-function drawArray(arr)
+function drawArray(arr, fuzzy = false)
 {
     /** @type HTMLCanvasElement */ let canvas = document.getElementById("canvas1")
     /** @type CanvasRenderingContext2D */ let ctx  = canvas.getContext("2d")
@@ -201,7 +201,66 @@ function drawArray(arr)
     ctx.fill()
 }
 
-function drawOutput()
+function drawArrayFuzzy(arr)
+{
+    let fuzzLength = 3
+    let fuzzAmount = 0.8
+
+    /** @type HTMLCanvasElement */ let canvas = document.getElementById("canvas1")
+    /** @type CanvasRenderingContext2D */ let ctx  = canvas.getContext("2d")
+
+    canvas.width = 1000
+    canvas.height = 1000
+
+    ctx.clearRect(0, 0, 1000, 1000)
+    ctx.beginPath()
+
+    let a
+    let i
+    let p
+    let p2
+    let left
+    ctx.moveTo(arr[0], arr[1])
+    p = [ arr[0], arr[1] ]
+
+    let len
+    let angle
+    for (i=2; i<arr.length; i+=2)
+    {
+        p2 = [ arr[i], arr[i + 1] ]
+
+        let done = false
+
+        while (!done)
+        {
+            len = Math.sqrt(Math.pow(p[0] - p2[0], 2) + Math.pow(p[1] - p2[1], 2))
+            angle = Math.atan2(p2[1] - p[1], p2[0] - p[0])
+
+            if (len > fuzzLength)
+            {
+                len = fuzzLength
+                angle = angle + (Math.random() - 0.5) * fuzzAmount
+            }
+            else
+            {
+                done = true
+            }
+
+            p[0] += Math.cos(angle) * len
+            p[1] += Math.sin(angle) * len
+            
+            ctx.lineTo(p[0], p[1])
+        }
+    }
+    // ctx.closePath()
+
+    ctx.strokeStyle = "2px solid #000"
+    ctx.fillStyle = "#ccc"
+    ctx.stroke()
+    ctx.fill()
+}
+    
+function drawOutput(fuzzy)
 {
     let s = document.getElementById("output").value
     s = s.replaceAll(" ", "")
@@ -209,5 +268,18 @@ function drawOutput()
 
     let arr = s.split(",")
 
-    drawArray(arr)
+    let i
+    for (i in arr)
+    {
+        arr[i] = parseFloat(arr[i])
+    }
+
+    if (!fuzzy)
+    {
+        drawArray(arr)
+    }
+    else
+    {
+        drawArrayFuzzy(arr)
+    }
 }
