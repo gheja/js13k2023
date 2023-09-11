@@ -186,10 +186,42 @@ class Game
 
         this.ticks++
 
+        let dx: number = 0
+        let dy: number = 0
+
+        if (_input.keysPressed['a'])
+        {
+            dx += -5
+        }
+        if (_input.keysPressed['d'])
+        {
+            dx += +5
+        }
+        if (_input.keysPressed['w'])
+        {
+            dy += -5
+        }
+        if (_input.keysPressed['s'])
+        {
+            dy += +5
+        }
+
+        let pos: Vec2D = new Vec2D(this.character.position.x + dx, this.character.position.y + dy)
+
+        // if (this.validCharacterPosition(pos))
+        {
+            this.character.position.copyFrom(pos)
+        }
+
+        this.viewCenter.copyFrom(this.character.position)
+        this.viewScale = lerp(1.75, 1.0, clampn(this.character.position.y, -3000, 2000))
+
         for (let obj of _gameObjects)
         {
             obj.update()
         }
+        
+        _input.clearKeysJustPressed()
     }
 
     onSetReadyToProceed()
