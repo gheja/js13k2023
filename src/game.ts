@@ -22,6 +22,7 @@ class Game
     private windowCenter: Vec2D
 
     private ticks: number = 0
+    private lastTickTime: number
     private divertAngle: number = 0
 
     worldToScreenSize(x: number)
@@ -206,6 +207,12 @@ class Game
 
     tick()
     {
+        let now = performance.now()
+        let dt = Math.min(now - this.lastTickTime, 1000) / 1000 // don't jump more than 1 second
+        this.lastTickTime = now
+
+        window.requestAnimationFrame(this.tick.bind(this))
+
         if (this.paused)
         {
             return
@@ -215,7 +222,6 @@ class Game
 
         let dx: number = 0
         let dy: number = 0
-        let dt: number = 1/60 // time difference between frames
         let dtt: number = dt / (1/60) // a ratio to 60 fps
 
         if (_input.keysPressed['a'])
@@ -306,7 +312,7 @@ class Game
         this.onResize()
         this.createMap()
         this.initLevel()
-        window.setInterval(this.tick.bind(this), 1000 / 60)
+        this.tick()
         this.loadFinished()
     }
 }
