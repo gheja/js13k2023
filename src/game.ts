@@ -12,8 +12,8 @@ class Game
     // private pastTrails: Array<Array<Vec2D>>
     // private currentTrail: Array<Vec2D>
 
-    private viewScale: number = 1
-    private viewCenter: Vec2D = new Vec2D(0, 0)
+    private viewScale: number = 1.75
+    private viewCenter: Vec2D = new Vec2D(-3125, -1560)
     private windowScale: number = 1
     private windowCenter: Vec2D
 
@@ -174,7 +174,7 @@ class Game
 
     initLevel()
     {
-        this.character = new ObjCharacter(100, 100)
+        this.character = new ObjCharacter(-3125, -1560)
     }
 
     tick()
