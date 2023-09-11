@@ -39,6 +39,12 @@ class Game
     {
         this.state = STATE_MAP
         this.setScreen("map")
+
+        let map_layer0 = new Renderer(1920 * 4, 1080 * 4, getElement("map"))
+        map_layer0.drawArrays(GFX_MAP_LAND, 1000, 5, "#574852", null, 2, 0.8)
+
+        let character_sprite = new Renderer(100, 100, getElement("map"))
+        character_sprite.drawArrays(GFX_SHIP, 100, 0, null, "#4b726e", 3, 0.05)
     }
 
     onSetReadyToProceed()

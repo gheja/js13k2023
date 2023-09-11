@@ -6,7 +6,7 @@ body
 {
     margin: 0;
     padding: 0;
-    background: #574852;
+    background: #4b3d44;
     color: #000000aa;
     font-family: candara, corbel;
     font-size: min(5.33vh, 3vw);
@@ -15,13 +15,13 @@ body
 
 .body-conversation
 {
-    background: #ab9b8e;
+    background: #574852;
     color: #847875;
 }
 
 .body-map
 {
-    background: #d2c9a5;
+    background: #ab9b8e;
     color: #847875;
 }
 
@@ -69,7 +69,7 @@ body
 
 .s
 {
-    background: #ffffff22;
+    background: #00000033;
 }
 
 .s-you
