@@ -39,8 +39,6 @@ class Input
             this.keysJustPressed[a] = true
         }
 
-        console.log(this.keysPressed)
-
         event.preventDefault()
     }
 }
