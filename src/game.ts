@@ -215,25 +215,27 @@ class Game
 
         let dx: number = 0
         let dy: number = 0
+        let dt: number = 1/60 // time difference between frames
+        let dtt: number = dt / (1/60) // a ratio to 60 fps
 
         if (_input.keysPressed['a'])
         {
-            this.objTargetArrow.angle -= 0.015
+            this.objTargetArrow.angle -= 0.015 * dtt
         }
         if (_input.keysPressed['d'])
         {
-            this.objTargetArrow.angle += 0.015
+            this.objTargetArrow.angle += 0.015 * dtt
         }
 
         this.objCompassArrow.angle = 0
         // this.directionTarget.angle = this.ticks / 100
-        this.objRealArrow.angle = this.objTargetArrow.angle + this.divertAngle
+        this.objRealArrow.angle = stepn(this.objRealArrow.angle, this.objTargetArrow.angle + this.divertAngle, 0.015 * dtt)
         this.objDivertVisual.angle = this.objRealArrow.angle
 
         let speed = 0.5
 
-        dx = Math.cos(this.objRealArrow.angle) * speed
-        dy = Math.sin(this.objRealArrow.angle) * speed
+        dx = Math.cos(this.objRealArrow.angle) * speed * dtt
+        dy = Math.sin(this.objRealArrow.angle) * speed * dtt
 
         let pos: Vec2D = new Vec2D(this.character.position.x + dx, this.character.position.y + dy)
 
