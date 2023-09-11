@@ -9,6 +9,10 @@ class Game
 
     private map: ObjBase
     private character: ObjCharacter
+    private objCompassArrow: ObjBase
+    private objTargetArrow: ObjBase
+    private objRealArrow: ObjBase
+    private objDivertVisual: ObjBase
     // private pastTrails: Array<Array<Vec2D>>
     // private currentTrail: Array<Vec2D>
 
@@ -18,6 +22,7 @@ class Game
     private windowCenter: Vec2D
 
     private ticks: number = 0
+    private divertAngle: number = 0
 
     worldToScreenSize(x: number)
     {
@@ -174,8 +179,30 @@ class Game
 
     initLevel()
     {
+        let tmp: Renderer
+
         this.character = new ObjCharacter(-3125, -1560)
-    }
+
+        // UI elements
+        tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
+        tmp.drawArrays(GFX_UI_COMPASS, 100, 0, null, "#79444a", 0, 0)
+        this.objCompassArrow = new ObjBase(0, 0, tmp)
+        
+        tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
+        tmp.drawArrays(GFX_UI_TARGET, 100, 5, "#847875", null, 0, 0)
+        this.objTargetArrow = new ObjBase(0, 0, tmp)
+        this.objTargetArrow.angle = 0.785
+        
+        tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
+        tmp.drawArrays(GFX_UI_REAL, 100, 0, null, "#4b726e", 0, 0)
+        this.objRealArrow = new ObjBase(0, 0, tmp)
+
+        tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
+        this.objDivertVisual = new ObjBase(0, 0, tmp)
+        // this.objDivertVisual.graphics.ctx.lineCap = "round"
+        this.objDivertVisual.graphics.ctx.strokeStyle = "#4b726e"
+        this.objDivertVisual.graphics.ctx.lineWidth = 8
+}
 
     tick()
     {
@@ -191,20 +218,22 @@ class Game
 
         if (_input.keysPressed['a'])
         {
-            dx += -5
+            this.objTargetArrow.angle -= 0.015
         }
         if (_input.keysPressed['d'])
         {
-            dx += +5
+            this.objTargetArrow.angle += 0.015
         }
-        if (_input.keysPressed['w'])
-        {
-            dy += -5
-        }
-        if (_input.keysPressed['s'])
-        {
-            dy += +5
-        }
+
+        this.objCompassArrow.angle = 0
+        // this.directionTarget.angle = this.ticks / 100
+        this.objRealArrow.angle = this.objTargetArrow.angle + this.divertAngle
+        this.objDivertVisual.angle = this.objRealArrow.angle
+
+        let speed = 0.5
+
+        dx = Math.cos(this.objRealArrow.angle) * speed
+        dy = Math.sin(this.objRealArrow.angle) * speed
 
         let pos: Vec2D = new Vec2D(this.character.position.x + dx, this.character.position.y + dy)
 
@@ -213,6 +242,16 @@ class Game
             this.character.position.copyFrom(pos)
         }
 
+        this.objCompassArrow.position.copyFrom(this.character.position)
+        this.objTargetArrow.position.copyFrom(this.character.position)
+        this.objRealArrow.position.copyFrom(this.character.position)
+        this.objDivertVisual.position.copyFrom(this.character.position)
+
+        // update divert visual
+        this.objDivertVisual.graphics.ctx.beginPath()
+        this.objDivertVisual.graphics.ctx.arc(VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 * 0.31, -this.divertAngle, 0)
+        this.objDivertVisual.graphics.ctx.stroke()
+        
         this.viewCenter.copyFrom(this.character.position)
         this.viewScale = lerp(1.75, 1.0, clampn(this.character.position.y, -3000, 2000))
 
