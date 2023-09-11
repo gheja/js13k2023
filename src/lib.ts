@@ -25,3 +25,20 @@ function lerp(a: number, b: number, t: number)
 {
     return a + (b - a) * t
 }
+
+function stepn(a: number, b: number, stepSize: number)
+{
+    let c: number = stepSize
+
+    if (Math.abs(b - a) < stepSize)
+    {
+        c = Math.abs(b - a)
+    }
+
+    if (a < b)
+    {
+        return a + c
+    }
+
+    return a - c
+}
