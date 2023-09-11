@@ -70,14 +70,12 @@ function convert()
             position[0] += p[0]
             position[1] += p[1]
             nextMode = "l"
-            draw = false
         }
         else if (mode == "M")
         {
             position[0] = p[0]
             position[1] = p[1]
             nextMode = "L"
-            draw = false
         }
         else if (mode == "l")
         {
