@@ -6,8 +6,8 @@ body
 {
     margin: 0;
     padding: 0;
-    background: #4b3d44;
-    color: #000000aa;
+    background: #574852;
+    color: #00000088;
     font-family: candara, corbel;
     font-size: min(5.33vh, 3vw);
     transition: background-color 0.5s, color 0.5s;
@@ -15,14 +15,13 @@ body
 
 .body-conversation
 {
-    background: #574852;
-    color: #847875;
+    background: #4b3d44;
 }
 
 .body-map
 {
     background: #ab9b8e;
-    color: #847875;
+    color: #574852;;
 }
 
 *
@@ -70,6 +69,9 @@ body
 .s
 {
     background: #00000033;
+    color: #ba9158;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
 }
 
 .s-you
@@ -94,7 +96,7 @@ body
     display: none;
     position: fixed;
     right: 1rem;
-    bottom: 1rem;
+    bottom: 3rem;
     animation: blink 2s infinite;
 }
 
