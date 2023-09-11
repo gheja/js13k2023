@@ -8,4 +8,10 @@ class Vec2D
         this.x = x
         this.y = y
     }
+
+    copyFrom(pos: Vec2D)
+    {
+        this.x = pos.x
+        this.y = pos.y
+    }
 }
