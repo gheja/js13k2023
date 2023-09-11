@@ -117,7 +117,7 @@ class Game
             {
                 // add a bit of randomness
                 x2 = x - 25 + (Math.random() - 0.5) * 25
-                y2 = y - 25 + (Math.random() - 0.5) * 25
+                y2 = y - 25 + (Math.random() - 0.5) * 25 - ((x / 50) % 2) * 15
 
                 if (mask_mountains.isActiveAtPosition(x, y))
                 {
