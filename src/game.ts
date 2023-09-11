@@ -51,7 +51,7 @@ class Game
         let tmp: Renderer
 
         let map_layer0 = new Renderer(1920 * 4, 1080 * 4, getElement("map"), false)
-        map_layer0.drawArrays(GFX_MAP_LAND, 1000, 5, "#574852", null, 2, 0.8)
+        map_layer0.drawArrays(GFX_MAP_LAND, 1000, 5, "#574852", "#bda99d33", 2, 0.8)
 
         // generate multiple versions of these graphics, they will be different
         // due to fuzzy rendering. this gives some variation on the map
