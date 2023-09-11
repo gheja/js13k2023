@@ -3,6 +3,7 @@ class ObjBase
     public position: Vec2D // the center of the object
     public graphics: Renderer
     public visible: boolean
+    public angle: number = 0 // in radians, 0 is right
 
     constructor(x: number, y: number, graphics: Renderer)
     {
@@ -23,5 +24,6 @@ class ObjBase
         this.graphics.canvas.style.top = (pos.y - height / 2) + "px"
         this.graphics.canvas.style.width = width + "px"
         this.graphics.canvas.style.height = height + "px"
+        this.graphics.canvas.style.transform = "rotate(" + this.angle + "rad)"
     }
 }
