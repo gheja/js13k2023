@@ -43,7 +43,7 @@ class Renderer
                     len = Math.sqrt(Math.pow(p[0] - p2[0], 2) + Math.pow(p[1] - p2[1], 2))
                     angle = Math.atan2(p2[1] - p[1], p2[0] - p[0])
         
-                    if (len > fuzzLength)
+                    if (fuzzLength != 0 && len > fuzzLength)
                     {
                         len = fuzzLength
                         angle = angle + (Math.random() - 0.5) * fuzzAmount
