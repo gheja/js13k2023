@@ -167,6 +167,12 @@ function convert()
         scales = [ 5.223941709335997, 9.759621403204987 ]
         pads = [ -24.734057999999965, -14.742199000000014 ]
     }
+    else if (document.getElementById("final_sprite_parameters").checked)
+    {
+        resolution = 100
+        scales = [ 1, 1 ]
+        pads = [ 0, 0 ]
+    }
 
     let points2 = []
     for (i in points)
