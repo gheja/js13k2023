@@ -1,6 +1,6 @@
 class ObjBase
 {
-    public position: Vec2D
+    public position: Vec2D // the center of the object
     public graphics: Renderer
     public visible: boolean
 
