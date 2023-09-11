@@ -103,5 +103,27 @@ body
     position: absolute;
 }
 
+#controls1
+{
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+}
+
+#controls2
+{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+#controls1 > span,
+#controls2 > span
+{
+    background: #00000033;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */
