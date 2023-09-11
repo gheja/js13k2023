@@ -230,9 +230,9 @@ class Game
         window.addEventListener("click", this.onClick.bind(this))
         window.addEventListener("keypress", this.onClick.bind(this))
         window.addEventListener("resize", this.onResize.bind(this))
-        this.initLevel()
         this.onResize()
         this.createMap()
+        this.initLevel()
         window.setInterval(this.tick.bind(this), 1000 / 60)
         this.loadFinished()
     }
