@@ -259,7 +259,7 @@ class Game
         {
             obj.update()
         }
-        
+
         _input.clearKeysJustPressed()
     }
 
