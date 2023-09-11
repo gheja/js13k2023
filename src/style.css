@@ -98,5 +98,10 @@ body
     animation: blink 2s infinite;
 }
 
+#map > *
+{
+    position: absolute;
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */

@@ -5,6 +5,30 @@ class Game
     private readyToProceed = false
     private currentScreenId = "loader"
 
+    private paused: boolean = true
+
+    private map: ObjBase
+    private character: ObjCharacter
+    // private pastTrails: Array<Array<Vec2D>>
+    // private currentTrail: Array<Vec2D>
+
+    private viewScale: number = 1
+    private viewCenter: Vec2D = new Vec2D(0, 0)
+    private windowScale: number = 1
+    private windowCenter: Vec2D
+
+    private ticks: number = 0
+
+    worldToScreenSize(x: number)
+    {
+        return x * this.viewScale * this.windowScale
+    }
+
+    worldToScreenCoordinates(pos: Vec2D)
+    {
+        return new Vec2D(this.worldToScreenSize(pos.x - this.viewCenter.x) + this.windowCenter.x, this.worldToScreenSize(pos.y - this.viewCenter.y) + this.windowCenter.y)
+    }
+
     loadFinished()
     {
         getElement("loader").innerHTML = "Game loaded."
@@ -39,6 +63,7 @@ class Game
     {
         this.state = STATE_MAP
         this.setScreen("map")
+        this.paused = false
     }
 
     createMap()
@@ -50,7 +75,7 @@ class Game
         let i: number
         let tmp: Renderer
 
-        let map_layer0 = new Renderer(1920 * 4, 1080 * 4, getElement("map"), false)
+        let map_layer0 = new Renderer(1920 * 4, 1080 * 4, null, false)
         map_layer0.drawArrays(GFX_MAP_LAND, 1000, 5, "#574852", "#bda99d33", 2, 0.8)
 
         // generate multiple versions of these graphics, they will be different
@@ -99,9 +124,6 @@ class Game
             grass_versions.push(tmp)
         }
 
-        let character_sprite = new Renderer(100, 100, getElement("map"), false)
-        character_sprite.drawArrays(GFX_SHIP, 100, 0, null, "#4b726e", 3, 0.05)
-        
         let mask_land = new Renderer(1920 * 4, 1080 * 4, null, true)
         let mask_hills = new Renderer(1920 * 4, 1080 * 4, null, true)
         let mask_mountains = new Renderer(1920 * 4, 1080 * 4, null, true)
@@ -146,6 +168,28 @@ class Game
                 }
             }
         }
+
+        this.map = new ObjBase(0, 0, map_layer0)
+    }
+
+    initLevel()
+    {
+        this.character = new ObjCharacter(100, 100)
+    }
+
+    tick()
+    {
+        if (this.paused)
+        {
+            return
+        }
+
+        this.ticks++
+
+        for (let obj of _gameObjects)
+        {
+            obj.update()
+        }
     }
 
     onSetReadyToProceed()
@@ -158,6 +202,8 @@ class Game
     {
         // so it'll be always scrolled to the end
         getElement("conversation").scrollBy(0, 10000)
+        this.windowScale = Math.min(document.body.clientWidth / 1920, document.body.clientHeight / 1080)
+        this.windowCenter = new Vec2D(document.body.clientWidth / 2, document.body.clientHeight / 2)
     }
 
     onClick()
@@ -184,8 +230,10 @@ class Game
         window.addEventListener("click", this.onClick.bind(this))
         window.addEventListener("keypress", this.onClick.bind(this))
         window.addEventListener("resize", this.onResize.bind(this))
+        this.initLevel()
         this.onResize()
         this.createMap()
+        window.setInterval(this.tick.bind(this), 1000 / 60)
         this.loadFinished()
     }
 }

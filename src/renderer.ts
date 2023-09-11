@@ -6,7 +6,7 @@ class Renderer
     constructor(width: number, height: number, parentNode: HTMLElement = null, isMaskLayer: boolean)
     {
         this.canvas = document.createElement("canvas")
-        this.ctx = this.canvas.getContext("2d", { willReadFrequently: isMaskLayer })
+        this.ctx = this.canvas.getContext("2d", { willReadFrequently: isMaskLayer }) as CanvasRenderingContext2D
         this.canvas.width = width
         this.canvas.height = height
 
