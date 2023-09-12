@@ -16,6 +16,7 @@ body
 .body-conversation
 {
     background: #4b3d44;
+    color: #ba9158;
 }
 
 .body-map
@@ -75,7 +76,6 @@ body
 .s
 {
     background: #00000033;
-    color: #ba9158;
     padding: 0.25rem;
     border-radius: 0.25rem;
 }
