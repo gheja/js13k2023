@@ -253,7 +253,7 @@ class Game
         tmp.style.color = color
         document.body.appendChild(tmp)
 
-        window.setTimeout(this.destroyElement.bind(this, tmp), 3000)
+        window.setTimeout(this.destroyElement.bind(this, tmp), 4000)
     }
 
     addDivert()

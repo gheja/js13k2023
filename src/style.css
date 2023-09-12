@@ -140,7 +140,7 @@ body
     right: 0;
     left: 0;
     font-size: 2rem;
-    animation: fade 3s;
+    animation: fade 4s;
     opacity: 0;
     text-align: center;
 }
