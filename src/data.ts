@@ -81,3 +81,5 @@ const GFX_UI_TARGET = [ [ 91,50, 78,55, 78,45, 91,50 ] ]
 const GFX_UI_REAL = [ [ 88,50, 79,53, 79,47, 88,50 ] ]
 
 const VISUAL_SIZE_1 = 250
+const VISUAL_SIZE_MAP_WIDTH = 1920 * 4
+const VISUAL_SIZE_MAP_HEIGHT = 1080 * 4

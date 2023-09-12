@@ -7,6 +7,11 @@ class Game
 
     private paused: boolean = true
 
+    private maskLand: Renderer
+    private maskHills: Renderer
+    private maskMountains: Renderer
+    private maskPlayArea: Renderer
+    
     private map: ObjBase
     private character: ObjCharacter
     private objCompassArrow: ObjBase
@@ -81,7 +86,7 @@ class Game
         let i: number
         let tmp: Renderer
 
-        let map_layer0 = new Renderer(1920 * 4, 1080 * 4, null, false)
+        let map_layer0 = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, false)
         map_layer0.drawArrays(GFX_MAP_LAND, 1000, 5, "#574852", "#bda99d33", 2, 0.8)
 
         // generate multiple versions of these graphics, they will be different
@@ -130,42 +135,45 @@ class Game
             grass_versions.push(tmp)
         }
 
-        let mask_land = new Renderer(1920 * 4, 1080 * 4, null, true)
-        let mask_hills = new Renderer(1920 * 4, 1080 * 4, null, true)
-        let mask_mountains = new Renderer(1920 * 4, 1080 * 4, null, true)
-        mask_land.drawArrays(GFX_MAP_LAND, 1000, 0, null, "#fff", 0, 0)
-        mask_hills.drawArrays(GFX_MAP_HILLS_1, 1000, 0, null, "#fff", 0, 0)
-        mask_mountains.drawArrays(GFX_MAP_HILLS_2, 1000, 0, null, "#fff", 0, 0)
+        this.maskLand = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, true)
+        this.maskHills = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, true)
+        this.maskMountains = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, true)
+        this.maskPlayArea = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, true)
+
+        this.maskLand.drawArrays(GFX_MAP_LAND, 1000, 0, null, "#fff", 0, 0)
+        this.maskHills.drawArrays(GFX_MAP_HILLS_1, 1000, 0, null, "#fff", 0, 0)
+        this.maskMountains.drawArrays(GFX_MAP_HILLS_2, 1000, 0, null, "#fff", 0, 0)
+        this.maskPlayArea.drawArrays(GFX_MAP_PLAY_AREA, 1000, 0, null, "#fff", 0, 0)
 
         let x2: number
         let y2: number
-        for (let x = 0; x < 1920 * 4; x += 50)
+        for (let x = 0; x < VISUAL_SIZE_MAP_WIDTH; x += 50)
         {
-            for (let y = 0; y < 1920 * 4; y += 50)
+            for (let y = 0; y < VISUAL_SIZE_MAP_HEIGHT; y += 50)
             {
                 // add a bit of randomness
                 x2 = x - 25 + (Math.random() - 0.5) * 25
                 y2 = y - 25 + (Math.random() - 0.5) * 25 - ((x / 50) % 2) * 15
 
-                if (mask_mountains.isActiveAtPosition(x, y))
+                if (this.maskMountains.isActiveAtPosition(x, y))
                 {
                     map_layer0.drawOther(arrayPick(mountain_versions), x2, y2)
                 }
-                else if (mask_hills.isActiveAtPosition(x, y))
+                else if (this.maskHills.isActiveAtPosition(x, y))
                 {
                     if (Math.random() < 0.8)
                     {
                         map_layer0.drawOther(arrayPick(hill_versions), x2, y2)
                     }
                 }
-                else if (!mask_land.isActiveAtPosition(x, y))
+                else if (!this.maskLand.isActiveAtPosition(x, y))
                 {
                     if (Math.random() < 0.1)
                     {
                         map_layer0.drawOther(arrayPick(wave_versions), x2, y2)
                     }
                 }
-                else if (mask_land.isActiveAtPosition(x, y))
+                else if (this.maskLand.isActiveAtPosition(x, y))
                 {
                     if (Math.random() < 0.2)
                     {
