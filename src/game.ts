@@ -192,9 +192,24 @@ class Game
 
         this.map = new ObjBase(0, 0, map_layer0)
 
-        this.cities.push(new ObjCity(-2900, -1560, "Aaaa", false, false))
-        this.cities.push(new ObjCity(-2700, -1560, "Baaba", false, false))
-        this.cities.push(new ObjCity(-2100, -1560, "Cecce", false, false))
+        this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1))
+        this.cities.push(new ObjCity(-2710, -1245, "Durrës",         false, false, 1))
+        this.cities.push(new ObjCity(-1690,  -555, "Acre",           false, false, 1))
+        this.cities.push(new ObjCity(-1140,  -490, "Baghdad",        false, false, 1))
+        this.cities.push(new ObjCity( -395,   -70, "port of Hormuz", false, false, 1))
+        this.cities.push(new ObjCity( -600,  -685, "Terbil",         false, false, 2))
+        this.cities.push(new ObjCity(  260,  -890, "Balkh",          false, false, 2))
+        this.cities.push(new ObjCity(  400, -1310, "Samarkand",      true,  true,  2))
+        this.cities.push(new ObjCity( 1140, -1070, "Kashgar",        true,  true,  2))
+        this.cities.push(new ObjCity( 1280,  -960, "Yarkand",        false, true,  4))
+        this.cities.push(new ObjCity( 2380,  -830, "Lanzhou",        false, true,  3))
+        this.cities.push(new ObjCity( 2270, -1240, "Karakorum",      false, false, 3))
+        this.cities.push(new ObjCity( 2815, -1217, "Shangdu",        false, true,  3))
+        this.cities.push(new ObjCity( 2950, -1070, "Bejing",         false, false, 3))
+        this.cities.push(new ObjCity( 2770,  -380, "Chengdu",        false, false, 4))
+        this.cities.push(new ObjCity( 2610,   -10, "Kunmig",         false, false, 4))
+        this.cities.push(new ObjCity( 1890,   330, "Pagan",          false, false, 4))
+        this.cities.push(new ObjCity(  900,  1050, "Calicut",        false, false, 4))
 
         this.targetCity = this.cities[0]
 
