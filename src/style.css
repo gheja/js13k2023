@@ -146,5 +146,16 @@ body
     100% { opacity: 0; font-size: 1.8rem; }
 }
 
+#warning
+{
+    position: fixed;
+    color: #79444a;
+    top: 5rem;
+    right: 0;
+    left: 0;
+    text-align: center;
+    animation: blink 1s infinite;
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */

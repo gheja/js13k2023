@@ -268,6 +268,7 @@ class Game
         let dx: number = 0
         let dy: number = 0
         let dtt: number = dt / (1/60) // a ratio to 60 fps
+        let warning: string = ""
 
         // lowering the divert on each frame
         this.divertAngle = stepn(this.divertAngle, 0, 0.005 * dtt)
@@ -291,7 +292,15 @@ class Game
 
         let pos: Vec2D = new Vec2D(this.character.position.x + dx, this.character.position.y + dy)
 
-        if (this.maskPlayArea.isActiveAtPosition(Math.round(pos.x) + VISUAL_SIZE_MAP_WIDTH/2, Math.round(pos.y) + VISUAL_SIZE_MAP_HEIGHT/2))
+        if (!this.maskPlayArea.isActiveAtPosition(Math.round(pos.x) + VISUAL_SIZE_MAP_WIDTH/2, Math.round(pos.y) + VISUAL_SIZE_MAP_HEIGHT/2))
+        {
+            warning = "We are getting too far from the destination..."
+        }
+        else if (this.maskMountains.isActiveAtPosition(Math.round(pos.x) + VISUAL_SIZE_MAP_WIDTH/2, Math.round(pos.y) + VISUAL_SIZE_MAP_HEIGHT/2))
+        {
+            warning = "This terrain is too rough for us to navigate..."
+        }
+        else
         {
             this.character.position.copyFrom(pos)
         }
@@ -309,6 +318,8 @@ class Game
         
         this.viewCenter.copyFrom(this.character.position)
         this.viewScale = lerp(1.75, 1.0, clampn(this.character.position.y, -3000, 2000))
+
+        getElement("warning").innerHTML = warning
 
         for (let obj of _gameObjects)
         {
