@@ -261,6 +261,9 @@ class Game
         let dy: number = 0
         let dtt: number = dt / (1/60) // a ratio to 60 fps
 
+        // lowering the divert on each frame
+        this.divertAngle = stepn(this.divertAngle, 0, 0.005 * dtt)
+        
         if (_input.keysPressed['a'])
         {
             this.objTargetArrow.angle -= 0.015 * dtt
