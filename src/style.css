@@ -127,5 +127,24 @@ body
     border-radius: 0.25rem;
 }
 
+.popup
+{
+    position: fixed;
+    top: 3rem;
+    right: 0;
+    left: 0;
+    font-size: 2rem;
+    animation: fade 3s;
+    opacity: 0;
+    text-align: center;
+}
+
+@keyframes fade
+{
+    0% { opacity: 0; font-size: 4rem; }
+    5% { opacity: 1; font-size: 2rem; }
+    100% { opacity: 0; font-size: 1.8rem; }
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */

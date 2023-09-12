@@ -203,7 +203,40 @@ class Game
         // this.objDivertVisual.graphics.ctx.lineCap = "round"
         this.objDivertVisual.graphics.ctx.strokeStyle = "#4b726e"
         this.objDivertVisual.graphics.ctx.lineWidth = 8
-}
+    }
+
+    destroyElement(element: HTMLElement)
+    {
+        element.parentNode.removeChild(element)
+    }
+
+    popUpMessage(text: string, color: string)
+    {
+        let tmp: HTMLDivElement
+        tmp = document.createElement("div")
+        tmp.className = "popup"
+        tmp.innerHTML = text
+        tmp.style.color = color
+        document.body.appendChild(tmp)
+
+        window.setTimeout(this.destroyElement.bind(this, tmp), 3000)
+    }
+
+    addDivert()
+    {
+        // making sure it's at least 0.5 in absolute value
+        let a = 0.5 + Math.random() * Math.PI
+
+        if (Math.random() < 0.5)
+        {
+            a *= -1
+        }
+
+        this.divertAngle += a
+        this.objRealArrow.angle += a
+
+        this.popUpMessage("Detour!", "#ae5d40")
+    }
 
     tick()
     {
