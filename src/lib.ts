@@ -47,3 +47,13 @@ function wrapAngle(angle: number)
 {
     return (angle + 3 * Math.PI) % (2 * Math.PI) - Math.PI
 }
+
+function dist2D(p1: Vec2D, p2: Vec2D)
+{
+    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2))
+}
+
+function getAngle(p1: Array<number>, p2: Array<number>)
+{
+    return Math.atan2(p2[1] - p1[1], p2[0] - p1[0])
+}
