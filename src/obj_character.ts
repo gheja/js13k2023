@@ -1,5 +1,7 @@
 class ObjCharacter extends ObjBase
 {
+    public goodsAvailable: Array<string> = []
+
     constructor(x: number, y: number)
     {
         let graphics = new Renderer(100, 100, null, false)
