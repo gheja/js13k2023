@@ -45,13 +45,13 @@ function convert()
             // multiple paths are not supported so leave the processing here
             break
         }
-        else if (value.match(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/))
+        else if (value.match(/^-?\d+[-\d.e]*?,-?\d+[-\d.e]*?$/))
         {
             c = value.split(",")
             p[0] = parseFloat(c[0])
             p[1] = parseFloat(c[1])
         }
-        else if (value.match(/^-?\d+\.\d+$/))
+        else if (value.match(/^-?\d+[-\d.e]*$/))
         {
             p[0] = parseFloat(value)
             p[1] = 0
