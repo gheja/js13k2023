@@ -163,5 +163,13 @@ body
     animation: blink 1s infinite;
 }
 
+.city-label
+{
+    position: absolute;
+    color: #79444a;
+    text-align: center;
+    font-size: 0.6rem;
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */
