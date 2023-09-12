@@ -13,6 +13,10 @@ class Game
     private maskPlayArea: Renderer
 
     private fog: Renderer
+
+    private cities: Array<ObjCity> = []
+    private currentCity: ObjCity
+    private targetCity: ObjCity
     
     private map: ObjBase
     private objFog: ObjBase
@@ -188,6 +192,12 @@ class Game
 
         this.map = new ObjBase(0, 0, map_layer0)
 
+        this.cities.push(new ObjCity(-2900, -1560, "Aaaa", false, false))
+        this.cities.push(new ObjCity(-2700, -1560, "Baaba", false, false))
+        this.cities.push(new ObjCity(-2100, -1560, "Cecce", false, false))
+
+        this.targetCity = this.cities[0]
+
         this.fog = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, false)
         this.fog.ctx.fillStyle = "#ab9b8e"
         this.fog.ctx.fillRect(0, 0, VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT)
@@ -283,6 +293,31 @@ class Game
 */
     }
 
+    arriveAtCity(city: ObjCity)
+    {
+        city.justVisited = true
+
+        this.state = STATE_ENTERING_CITY
+        this.paused = true
+        this.currentCity = city
+        this.popUpMessage("Arrived at "  + city.name, "#79444a")
+        window.setTimeout(this.onSetReadyToProceed.bind(this), 750)
+    }
+
+    enterCity()
+    {
+        this.state = STATE_CITY
+        this.setScreen("city")
+        // this.paused = true
+    }
+
+    leaveCity()
+    {
+        this.state = STATE_MAP
+        this.setScreen("map")
+        this.paused = false
+    }
+
     tick()
     {
         let now = performance.now()
@@ -319,7 +354,7 @@ class Game
             this.objTargetArrow.angle += 0.015 * dtt
         }
 
-        this.objCompassArrow.angle = 0
+        this.objCompassArrow.angle = this.character.position.angleTo(this.targetCity.position)
         this.objRealArrow.angle = stepn(this.objRealArrow.angle, this.objTargetArrow.angle + this.divertAngle, 0.015 * dtt)
 
         let speed = 0.5
@@ -355,6 +390,24 @@ class Game
         
         this.viewCenter.copyFrom(this.character.position)
         this.viewScale = lerp(1.75, 1.0, clampn(this.character.position.y, -3000, 2000))
+
+        for (let city of this.cities)
+        {
+            if (city.justVisited)
+            {
+                if (dist2D(city.position, this.character.position) > CITY_LEAVE_DISTANCE)
+                {
+                    city.justVisited = false
+                }
+                continue
+            }
+
+            if (dist2D(city.position, this.character.position) < CITY_ARRIVE_DISTANCE)
+            {
+                this.arriveAtCity(city)
+                break
+            }
+        }
 
         getElement("warning").innerHTML = warning
 
@@ -401,6 +454,10 @@ class Game
         else if (this.state == STATE_INTRO)
         {
             this.startGame()
+        }
+        else if (this.state == STATE_ENTERING_CITY)
+        {
+            this.enterCity()
         }
     }
 

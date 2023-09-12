@@ -24,6 +24,12 @@ body
     color: #574852;;
 }
 
+.body-city
+{
+    background: #79444a;
+    color: #ba9158;
+}
+
 *
 {
     cursor: default;
