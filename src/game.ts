@@ -291,7 +291,7 @@ class Game
 
         let pos: Vec2D = new Vec2D(this.character.position.x + dx, this.character.position.y + dy)
 
-        // if (this.validCharacterPosition(pos))
+        if (this.maskPlayArea.isActiveAtPosition(Math.round(pos.x) + VISUAL_SIZE_MAP_WIDTH/2, Math.round(pos.y) + VISUAL_SIZE_MAP_HEIGHT/2))
         {
             this.character.position.copyFrom(pos)
         }
