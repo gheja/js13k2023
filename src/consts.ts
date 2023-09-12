@@ -7,3 +7,5 @@ const STATE_RUMORS = 5
 
 const CITY_ARRIVE_DISTANCE = 60
 const CITY_LEAVE_DISTANCE = 70
+
+const DEBUG_WITH_CURSOR = false

@@ -37,6 +37,8 @@ class Game
     private lastTickTime: number
     private divertAngle: number = 0
 
+    private objCursor: ObjBase
+
     worldToScreenSize(x: number)
     {
         return x * this.viewScale * this.windowScale
@@ -225,6 +227,16 @@ class Game
         this.clearFogAt(-3100, -1600, 1.5)
         this.clearFogAt(-3150, -1300, 1.5)
         this.clearFogAt(-3400, -1600, 1.5)
+
+        if (DEBUG_WITH_CURSOR)
+        {
+            tmp = new Renderer(10, 10, null, false)
+            tmp.ctx.fillStyle = "#ff00ff"
+            tmp.ctx.fillRect(0, 0, 10, 10)
+
+            this.objCursor = new ObjBase(0, 0, tmp)
+            this.fog.canvas.style.display = "none"
+        }
     }
 
     initLevel()
@@ -389,7 +401,10 @@ class Game
         }
         else
         {
-            this.character.position.copyFrom(pos)
+            if (!DEBUG_WITH_CURSOR)
+            {
+                this.character.position.copyFrom(pos)
+            }
         }
 
         this.objCompassArrow.position.copyFrom(this.character.position)
@@ -425,6 +440,38 @@ class Game
         }
 
         getElement("warning").innerHTML = warning
+
+
+        if (DEBUG_WITH_CURSOR)
+        {
+            if (_input.keysPressed['w'])
+            {
+                this.objCursor.position.y -= 5 / 2
+            }
+            if (_input.keysPressed['s'])
+            {
+                this.objCursor.position.y += 5 / 2
+            }
+            if (_input.keysPressed['a'])
+            {
+                this.objCursor.position.x -= 5 / 2
+            }
+            if (_input.keysPressed['d'])
+            {
+                this.objCursor.position.x += 5 / 2
+            }
+            if (_input.keysJustPressed['h'])
+            {
+                console.log(this.objCursor.position.x + ", " + this.objCursor.position.y)
+            }
+            if (this.ticks % 60 == 0)
+            {
+                this.clearFogAt(this.objCursor.position.x, this.objCursor.position.y, 1.2)
+            }
+
+            this.viewCenter.copyFrom(this.objCursor.position)
+            this.viewScale = 0.5
+        }
 
         for (let obj of _gameObjects)
         {
