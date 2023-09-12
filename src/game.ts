@@ -247,7 +247,7 @@ class Game
 
         // UI elements
         tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
-        tmp.drawArrays(GFX_UI_COMPASS, 100, 0, null, "#79444a", 0, 0)
+        tmp.drawArrays(GFX_UI_COMPASS, 100, 2, "#ab9b8e", "#79444a", 0, 0)
         this.objCompassArrow = new ObjBase(0, 0, tmp)
         
         tmp = new Renderer(VISUAL_SIZE_1, VISUAL_SIZE_1, null, false)
