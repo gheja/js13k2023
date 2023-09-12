@@ -194,12 +194,12 @@ class Game
 
         this.objFog = new ObjBase(0, 0, this.fog)
 
-        this.clearFogAt(-2600, -1400)
-        this.clearFogAt(-2770, -1000)
-        this.clearFogAt(-2800, -1600)
-        this.clearFogAt(-3100, -1600)
-        this.clearFogAt(-3150, -1300)
-        this.clearFogAt(-3400, -1600)
+        this.clearFogAt(-2600, -1400, 1.5)
+        this.clearFogAt(-2770, -1000, 1.5)
+        this.clearFogAt(-2800, -1600, 1.5)
+        this.clearFogAt(-3100, -1600, 1.5)
+        this.clearFogAt(-3150, -1300, 1.5)
+        this.clearFogAt(-3400, -1600, 1.5)
     }
 
     initLevel()
@@ -262,11 +262,11 @@ class Game
         this.popUpMessage("Detour!", "#ae5d40")
     }
 
-    clearFogAt(x: number, y: number)
+    clearFogAt(x: number, y: number, size: number)
     {
         this.fog.ctx.save()
         this.fog.ctx.beginPath()
-        this.fog.ctx.arc(x + VISUAL_SIZE_MAP_WIDTH / 2, y + VISUAL_SIZE_MAP_HEIGHT / 2, VISUAL_SIZE_1 * 1.5, 0, 2 * Math.PI)
+        this.fog.ctx.arc(x + VISUAL_SIZE_MAP_WIDTH / 2, y + VISUAL_SIZE_MAP_HEIGHT / 2, VISUAL_SIZE_1 * size, 0, 2 * Math.PI)
         this.fog.ctx.clip()
         this.fog.ctx.clearRect(0, 0, VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT)
         this.fog.ctx.restore()
@@ -365,7 +365,7 @@ class Game
 
         if (this.ticks % 60 == 0)
         {
-            this.clearFogAt(this.character.position.x, this.character.position.y)
+            this.clearFogAt(this.character.position.x, this.character.position.y, 1.2)
         }
 
         _input.clearKeysJustPressed()
