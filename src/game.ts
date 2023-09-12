@@ -11,8 +11,11 @@ class Game
     private maskHills: Renderer
     private maskMountains: Renderer
     private maskPlayArea: Renderer
+
+    private fog: Renderer
     
     private map: ObjBase
+    private objFog: ObjBase
     private character: ObjCharacter
     private objCompassArrow: ObjBase
     private objTargetArrow: ObjBase
@@ -184,6 +187,19 @@ class Game
         }
 
         this.map = new ObjBase(0, 0, map_layer0)
+
+        this.fog = new Renderer(VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT, null, false)
+        this.fog.ctx.fillStyle = "#ab9b8e"
+        this.fog.ctx.fillRect(0, 0, VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT)
+
+        this.objFog = new ObjBase(0, 0, this.fog)
+
+        this.clearFogAt(-2600, -1400)
+        this.clearFogAt(-2770, -1000)
+        this.clearFogAt(-2800, -1600)
+        this.clearFogAt(-3100, -1600)
+        this.clearFogAt(-3150, -1300)
+        this.clearFogAt(-3400, -1600)
     }
 
     initLevel()
@@ -244,6 +260,27 @@ class Game
         this.objRealArrow.angle += a
 
         this.popUpMessage("Detour!", "#ae5d40")
+    }
+
+    clearFogAt(x: number, y: number)
+    {
+        this.fog.ctx.save()
+        this.fog.ctx.beginPath()
+        this.fog.ctx.arc(x + VISUAL_SIZE_MAP_WIDTH / 2, y + VISUAL_SIZE_MAP_HEIGHT / 2, VISUAL_SIZE_1 * 1.5, 0, 2 * Math.PI)
+        this.fog.ctx.clip()
+        this.fog.ctx.clearRect(0, 0, VISUAL_SIZE_MAP_WIDTH, VISUAL_SIZE_MAP_HEIGHT)
+        this.fog.ctx.restore()
+
+/*
+        this.fog.ctx.beginPath()
+        this.fog.ctx.arc(x + VISUAL_SIZE_MAP_WIDTH / 2, y + VISUAL_SIZE_MAP_HEIGHT / 2, VISUAL_SIZE_1 * 1.5, 0, 2 * Math.PI)
+        this.fog.ctx.strokeStyle = "#000"
+        this.fog.ctx.stroke()
+
+        this.fog.ctx.font = "30pt Arial"
+        this.fog.ctx.fillStyle = "#000"
+        this.fog.ctx.fillText(x.toString() + ";" + y.toString(), x + VISUAL_SIZE_MAP_WIDTH / 2, y + VISUAL_SIZE_MAP_HEIGHT / 2)
+*/
     }
 
     tick()
@@ -324,6 +361,11 @@ class Game
         for (let obj of _gameObjects)
         {
             obj.update()
+        }
+
+        if (this.ticks % 60 == 0)
+        {
+            this.clearFogAt(this.character.position.x, this.character.position.y)
         }
 
         _input.clearKeysJustPressed()
