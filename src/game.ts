@@ -253,6 +253,10 @@ class Game
 
         this.ticks++
 
+        this.divertAngle = wrapAngle(this.divertAngle)
+        this.objRealArrow.angle = wrapAngle(this.objRealArrow.angle)
+        this.objTargetArrow.angle = wrapAngle(this.objTargetArrow.angle)
+
         let dx: number = 0
         let dy: number = 0
         let dtt: number = dt / (1/60) // a ratio to 60 fps

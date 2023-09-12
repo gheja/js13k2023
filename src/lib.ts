@@ -42,3 +42,8 @@ function stepn(a: number, b: number, stepSize: number)
 
     return a - c
 }
+
+function wrapAngle(angle: number)
+{
+    return (angle + 3 * Math.PI) % (2 * Math.PI) - Math.PI
+}
