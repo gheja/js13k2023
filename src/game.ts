@@ -274,9 +274,7 @@ class Game
         }
 
         this.objCompassArrow.angle = 0
-        // this.directionTarget.angle = this.ticks / 100
         this.objRealArrow.angle = stepn(this.objRealArrow.angle, this.objTargetArrow.angle + this.divertAngle, 0.015 * dtt)
-        this.objDivertVisual.angle = this.objRealArrow.angle
 
         let speed = 0.5
 
@@ -296,8 +294,9 @@ class Game
         this.objDivertVisual.position.copyFrom(this.character.position)
 
         // update divert visual
+        this.objDivertVisual.graphics.ctx.clearRect(0, 0, VISUAL_SIZE_1, VISUAL_SIZE_1)
         this.objDivertVisual.graphics.ctx.beginPath()
-        this.objDivertVisual.graphics.ctx.arc(VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 * 0.31, -this.divertAngle, 0)
+        this.objDivertVisual.graphics.ctx.arc(VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 / 2, VISUAL_SIZE_1 * 0.31, this.objTargetArrow.angle, this.objRealArrow.angle, (this.objTargetArrow.angle > this.objRealArrow.angle))
         this.objDivertVisual.graphics.ctx.stroke()
         
         this.viewCenter.copyFrom(this.character.position)
