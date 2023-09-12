@@ -46,7 +46,7 @@ class Renderer
                 while (!done)
                 {
                     len = Math.sqrt(Math.pow(p[0] - p2[0], 2) + Math.pow(p[1] - p2[1], 2))
-                    angle = Math.atan2(p2[1] - p[1], p2[0] - p[0])
+                    angle = getAngle(p, p2)
         
                     if (fuzzLength != 0 && len > fuzzLength)
                     {
