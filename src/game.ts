@@ -30,8 +30,8 @@ class Game
 
     private viewScale: number = 1.75
     private viewCenter: Vec2D = new Vec2D(-3125, -1560)
-    private windowScale: number = 1
-    private windowCenter: Vec2D
+    public windowScale: number = 1
+    public windowCenter: Vec2D
 
     private ticks: number = 0
     private lastTickTime: number
@@ -71,11 +71,22 @@ class Game
         this.setScreen("conversation")
 
         this.conversations.startConversation([
-            [ "", "One day ... ... ..."],
-            [ "king", "hey there lorem ipsum" ],
-            [ "you", "sit amet" ],
-            [ "king", "sure... sure..." ],
-            [ "", "*nods*"],
+            [ "", "It was a nice summer day. You just finished your lunch and was about to get back to work when a messenger arrived."],
+            [ "", "He told you that the King wants to speak with you and it sounds urgent. You get up and leave to the King."],
+            [ "king", "My loyal servant, my scouts just returned and they reported that there might be more land outside my realm." ],
+            [ "you", "I see, my lord..." ],
+            [ "king", "But they seem to be scared of going outside the country of Europe..." ],
+            [ "you", "I see, my lord..." ],
+            [ "king", "So I chose you to go and explore the land beyond my realm." ],
+            [ "you", "My lord?" ],
+            [ "king", "You look brave and fierce, what could go wrong?!" ],
+            [ "", "*laughs*"],
+            [ "king", "Pack up your goods and get your ship and horses ready, you'll begin your travels immediately." ],
+            [ "you", "... ... As you wish, my lord." ],
+            [ "king", "Good luck and have this compass help you on your way" ],
+            [ "", "*hands you a red compass*"],
+            [ "king", "... and while you're out there... Bring me a golden coat, will you?" ],
+            [ "you", "Certanly, my lord." ],
         ])
     }
 
@@ -84,6 +95,7 @@ class Game
         this.state = STATE_MAP
         this.setScreen("map")
         this.paused = false
+        _minigame.start(1, 4)
     }
 
     createMap()
@@ -194,7 +206,7 @@ class Game
 
         this.map = new ObjBase(0, 0, map_layer0)
 
-        this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1, [ ],                [ "gold fabrics" ]))
+        this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1, [ ],                [ "golden coat" ]))
         this.cities.push(new ObjCity(-3165, -1325, "Civitavecchia",  false, false, 1, [ "emerald" ],      [ "perfumes" ]))
         this.cities.push(new ObjCity(-1690,  -555, "Acre",           false, false, 1, [ "pepper" ],       [ "wool"]))
         this.cities.push(new ObjCity(-1140,  -490, "Baghdad",        false, false, 1, [ "spices" ],       [ "wool" ]))
@@ -207,11 +219,11 @@ class Game
         this.cities.push(new ObjCity( 2380,  -830, "Lanzhou",        false, false, 3, [ "silver" ],       [ "silk", "ruby", "wine" ]))
         this.cities.push(new ObjCity( 2270, -1240, "Karakorum",      false, false, 3, [ "silver" ],       [ "silk", "wool", "perfumes" ]))
         this.cities.push(new ObjCity( 2815, -1217, "Shangdu",        false, false, 3, [ "sapphire" ],     [ "pepper", "silk", "perfumes" ]))
-        this.cities.push(new ObjCity( 2950, -1070, "Bejing",         false, false, 3, [ "gold fabrics" ], [ "sapphire", "silk", "perfumes", "pearl" ]))
+        this.cities.push(new ObjCity( 2950, -1070, "Bejing",         false, false, 3, [ "golden coat" ], [ "sapphire", "silk", "perfumes", "pearl" ]))
         this.cities.push(new ObjCity( 2770,  -380, "Chengdu",        false, false, 4, [ "emerald" ],      [ "sapphire", "amber", "ruby" ]))
         this.cities.push(new ObjCity( 2610,   -10, "Kunmig",         false, false, 4, [ "turquoise" ],    [ "emerald", "pearls" ]))
         this.cities.push(new ObjCity( 1890,   330, "Pagan",          false, false, 4, [ "quartz" ],       [ "sapphire", "pearls" ]))
-        this.cities.push(new ObjCity(  900,  1050, "Calicut",        false, false, 4, [ "gold fabrics" ], [ "quartz", "pearls", "silver" ]))
+        this.cities.push(new ObjCity(  900,  1050, "Calicut",        false, false, 4, [ "golden coat" ], [ "quartz", "pearls", "silver" ]))
 
         // - wool
         // - wine
@@ -435,6 +447,8 @@ class Game
 
         // lowering the divert on each frame
         this.divertAngle = stepn(this.divertAngle, 0, 0.005 * dtt)
+
+        _minigame.tick(dt, dtt)
         
         if (this.ticks % 60 == 1)
         {
@@ -448,6 +462,22 @@ class Game
         if (_input.keysPressed['d'])
         {
             this.objTargetArrow.angle += 0.015 * dtt
+        }
+        if (_input.keysJustPressed['h'])
+        {
+            _minigame.pressColumn(0)
+        }
+        if (_input.keysJustPressed['j'])
+        {
+            _minigame.pressColumn(1)
+        }
+        if (_input.keysJustPressed['k'])
+        {
+            _minigame.pressColumn(2)
+        }
+        if (_input.keysJustPressed['l'])
+        {
+            _minigame.pressColumn(3)
         }
 
         this.objCompassArrow.angle = this.character.position.angleTo(this.targetCity.position)
@@ -552,6 +582,11 @@ class Game
             this.clearFogAt(this.character.position.x, this.character.position.y, 1.2)
         }
 
+        if (this.ticks % 900 == 0)
+        {
+            _minigame.startNext()
+        }
+
         _input.clearKeysJustPressed()
     }
 
@@ -567,6 +602,8 @@ class Game
         getElement("conversation").scrollBy(0, 10000)
         this.windowScale = Math.min(document.body.clientWidth / 1920, document.body.clientHeight / 1080)
         this.windowCenter = new Vec2D(document.body.clientWidth / 2, document.body.clientHeight / 2)
+
+        _minigame.screenPosition = new Vec2D(document.body.clientWidth - (4 * 80 - 20) * this.windowScale, document.body.clientHeight - (4 * 100 - 20) * this.windowScale)
     }
 
     onClick()

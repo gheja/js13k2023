@@ -224,5 +224,75 @@ body
     background: #00000044;
     color: #000000cc;
 }
+
+.md
+{
+    position: absolute;
+    color: #666;
+    background: #ffffff44;
+    font-size: 1rem;
+    padding: 0.2em;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+}
+
+.md-in-0
+{
+    color: #0a0;
+}
+.md-in-1
+{
+    color: #c30;
+}
+.md-in-2
+{
+    color: #ccc;
+}
+
+.mr
+{
+    position: absolute;
+    border-top: 0.1rem solid #ffffff33;
+}
+
+.mh
+{
+    position: absolute;
+}
+
+.mh-win
+{
+    color: #00cc00;
+}
+
+.mh-fail
+{
+    color: #cc0000;
+}
+
+.mh-new
+{
+    color: #ffffff33;
+}
+
+@keyframes mr-start
+{
+    0% { border-top-color: #000; }
+    100% { border-top-color: #ff0; }
+}
+
+@keyframes mr-fail
+{
+    0% { border-top-color: #ff550088; }
+    100% { border-top-color: #ffffff33; }
+}
+
+@keyframes mr-win
+{
+    0% { border-top-color: #00ff0088; }
+    100% { border-top-color: #ffffff33; }
+}
+
 /* debug */
 /* #container:hover { background: #00000020 } */
