@@ -354,6 +354,7 @@ class Game
 
     updateTradeScreen()
     {
+        getElement("city-name").innerHTML = "- " + this.currentCity.name + " -";
         getElement("g-give").innerHTML = this.getGoodsListHtml(this.currentCity.goodsAvailable, this.character.goodsAvailable, true)
         getElement("g-want").innerHTML = this.getGoodsListHtml(this.currentCity.goodsWanted, this.character.goodsAvailable, false)
         getElement("g-own").innerHTML = this.getGoodsListHtml(this.character.goodsAvailable, this.character.goodsAvailable, false)
