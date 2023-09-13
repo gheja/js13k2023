@@ -195,7 +195,7 @@ class Game
         this.map = new ObjBase(0, 0, map_layer0)
 
         this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1, [ ],                [ "gold fabrics" ]))
-        this.cities.push(new ObjCity(-2710, -1245, "Durrës",         false, false, 1, [ "emerald" ],      [ "perfumes" ]))
+        this.cities.push(new ObjCity(-3165, -1325, "Civitavecchia",  false, false, 1, [ "emerald" ],      [ "perfumes" ]))
         this.cities.push(new ObjCity(-1690,  -555, "Acre",           false, false, 1, [ "pepper" ],       [ "wool"]))
         this.cities.push(new ObjCity(-1140,  -490, "Baghdad",        false, false, 1, [ "spices" ],       [ "wool" ]))
         this.cities.push(new ObjCity( -395,   -70, "port of Hormuz", false, false, 1, [ "cotton" ],       [ "wool", "spices" ]))
