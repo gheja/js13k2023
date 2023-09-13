@@ -194,27 +194,28 @@ class Game
 
         this.map = new ObjBase(0, 0, map_layer0)
 
-        this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1, [], []))
-        this.cities.push(new ObjCity(-2710, -1245, "Durrës",         false, false, 1, [], [ "wine" ]))
-        this.cities.push(new ObjCity(-1690,  -555, "Acre",           false, false, 1, [], []))
-        this.cities.push(new ObjCity(-1140,  -490, "Baghdad",        false, false, 1, [], [ "wool" ]))
-        this.cities.push(new ObjCity( -395,   -70, "port of Hormuz", false, false, 1, [], [ "wool" ]))
-        this.cities.push(new ObjCity( -600,  -685, "Terbil",         false, false, 2, [], []))
-        this.cities.push(new ObjCity(  260,  -890, "Balkh",          false, false, 2, [], []))
-        this.cities.push(new ObjCity(  400, -1310, "Samarkand",      true,  true,  2, [], []))
-        this.cities.push(new ObjCity( 1140, -1070, "Kashgar",        true,  true,  2, [], []))
-        this.cities.push(new ObjCity( 1280,  -960, "Yarkand",        false, true,  4, [], []))
-        this.cities.push(new ObjCity( 2380,  -830, "Lanzhou",        false, true,  3, [], []))
-        this.cities.push(new ObjCity( 2270, -1240, "Karakorum",      false, false, 3, [], []))
-        this.cities.push(new ObjCity( 2815, -1217, "Shangdu",        false, true,  3, [], []))
-        this.cities.push(new ObjCity( 2950, -1070, "Bejing",         false, false, 3, [], []))
-        this.cities.push(new ObjCity( 2770,  -380, "Chengdu",        false, false, 4, [], []))
-        this.cities.push(new ObjCity( 2610,   -10, "Kunmig",         false, false, 4, [], []))
-        this.cities.push(new ObjCity( 1890,   330, "Pagan",          false, false, 4, [], []))
-        this.cities.push(new ObjCity(  900,  1050, "Calicut",        false, false, 4, [], []))
+        this.cities.push(new ObjCity(-3175, -1595, "Venice",         false, false, 1, [ ],                [ "gold fabrics" ]))
+        this.cities.push(new ObjCity(-2710, -1245, "Durrës",         false, false, 1, [ "emerald" ],      [ "perfumes" ]))
+        this.cities.push(new ObjCity(-1690,  -555, "Acre",           false, false, 1, [ "pepper" ],       [ "wool"]))
+        this.cities.push(new ObjCity(-1140,  -490, "Baghdad",        false, false, 1, [ "spices" ],       [ "wool" ]))
+        this.cities.push(new ObjCity( -395,   -70, "port of Hormuz", false, false, 1, [ "cotton" ],       [ "wool", "spices" ]))
+        this.cities.push(new ObjCity( -600,  -685, "Terbil",         false, false, 2, [ "perfumes" ],     [ "cotton", "spices" ]))
+        this.cities.push(new ObjCity(  260,  -890, "Balkh",          false, false, 2, [ "ruby" ],         [ "spices", "perfumes" ]))
+        this.cities.push(new ObjCity(  400, -1310, "Samarkand",      false, false, 2, [ "pearls"],        [ "perfumes", "wool" ]))
+        this.cities.push(new ObjCity( 1140, -1070, "Kashgar",        false, false, 2, [ "silk" ],         [ "perfumes", "wine" ]))
+        this.cities.push(new ObjCity( 1280,  -960, "Yarkand",        false, false, 4, [ "amber"],         [ "silk", "sapphire" ]))
+        this.cities.push(new ObjCity( 2380,  -830, "Lanzhou",        false, false, 3, [ "silver" ],       [ "silk", "ruby", "wine" ]))
+        this.cities.push(new ObjCity( 2270, -1240, "Karakorum",      false, false, 3, [ "silver" ],       [ "silk", "wool", "perfumes" ]))
+        this.cities.push(new ObjCity( 2815, -1217, "Shangdu",        false, false, 3, [ "sapphire" ],     [ "pepper", "silk", "perfumes" ]))
+        this.cities.push(new ObjCity( 2950, -1070, "Bejing",         false, false, 3, [ "gold fabrics" ], [ "sapphire", "silk", "perfumes", "pearl" ]))
+        this.cities.push(new ObjCity( 2770,  -380, "Chengdu",        false, false, 4, [ "emerald" ],      [ "sapphire", "amber", "ruby" ]))
+        this.cities.push(new ObjCity( 2610,   -10, "Kunmig",         false, false, 4, [ "turquoise" ],    [ "emerald", "pearls" ]))
+        this.cities.push(new ObjCity( 1890,   330, "Pagan",          false, false, 4, [ "quartz" ],       [ "sapphire", "pearls" ]))
+        this.cities.push(new ObjCity(  900,  1050, "Calicut",        false, false, 4, [ "gold fabrics" ], [ "quartz", "pearls", "silver" ]))
 
         // - wool
         // - wine
+        // - pepper
         // - spices
         // - precious stones (emerald, sapphire, ruby || amethyst, quartz crystal, amber, jade, jasper, coral, lapis lazuli, pearls, turquoise)
         // - pearls
