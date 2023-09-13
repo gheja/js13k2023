@@ -171,5 +171,58 @@ body
     font-size: 0.6rem;
 }
 
+#city-menu
+{
+    width: 80vw;
+    margin: 1rem auto;
+    text-align: center;
+    line-height: 1.3em;
+}
+
+.g-have,
+.g-miss,
+.g-new
+{
+    background: #00000044;
+    color: #000000cc;
+    border-radius: 0.1em;
+    padding: 0 0.2em;
+}
+
+.g-have
+{
+    background: #00ff0044;
+    color: #00ff0066;
+}
+
+.g-new
+{
+    background: #ffffff44;
+    color: #fff;
+}
+
+#city-menu a,
+#city-menu a:hover,
+#city-menu a:active
+{
+    background: #ba9158;
+    border-radius: 0.5em;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    color: #79444a;
+}
+
+#city-menu a:hover
+{
+    background: #fff;
+    color: #79444a;
+}
+
+#city-menu a.disabled,
+#city-menu a.disabled:hover
+{
+    background: #00000044;
+    color: #000000cc;
+}
 /* debug */
 /* #container:hover { background: #00000020 } */

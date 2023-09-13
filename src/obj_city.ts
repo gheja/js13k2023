@@ -7,6 +7,7 @@ class ObjCity extends ObjBase
     public unlockLevelNumber: number
     public goodsAvailable: Array<string>
     public goodsWanted: Array<string>
+    public tradeDone: boolean = false
 
     constructor(x: number, y: number, name: string, locked: boolean, hidden: boolean, unlockLevelNumber: number, goodsAvailable: Array<string>, goodsWanted: Array<string>)
     {

@@ -334,6 +334,51 @@ class Game
 */
     }
 
+    getGoodsListHtml(goods1: Array<string>, goods2: Array<string>, isMissingNew: boolean)
+    {
+        let s = ""
+
+        for (let good of goods1)
+        {
+            s += "<span class=\"" + (goods2.indexOf(good) === -1 ? (isMissingNew ? "g-new" : "g-miss") : "g-have") + "\">" + good + "</span> ";
+        }
+
+        return s;
+    }
+
+    actionTrade()
+    {
+        this.character.tradeWithCity(this.currentCity)
+        this.updateTradeScreen()
+    }
+
+    updateTradeScreen()
+    {
+        getElement("g-give").innerHTML = this.getGoodsListHtml(this.currentCity.goodsAvailable, this.character.goodsAvailable, true)
+        getElement("g-want").innerHTML = this.getGoodsListHtml(this.currentCity.goodsWanted, this.character.goodsAvailable, false)
+        getElement("g-own").innerHTML = this.getGoodsListHtml(this.character.goodsAvailable, this.character.goodsAvailable, false)
+        getElement("a-trade").className = this.character.canTradeWithCity(this.currentCity) ? "" : "disabled"
+    }
+
+    highlightNextCity()
+    {
+        let cities: Array<ObjCity> = []
+
+        for (let city of this.cities)
+        {
+            if (this.character.canTradeWithCity(city))
+            {
+                cities.push(city)
+            }
+        }
+
+        cities.sort(function(a, b) { return dist2D(a.position, _game.character.position) - dist2D(b.position, _game.character.position); })
+
+        // console.log(cities)
+
+        this.targetCity = cities[0]
+    }
+
     arriveAtCity(city: ObjCity)
     {
         city.justVisited = true
@@ -342,6 +387,9 @@ class Game
         this.paused = true
         this.currentCity = city
         this.popUpMessage("Arrived at "  + city.name, "#79444a")
+
+        this.updateTradeScreen()
+
         window.setTimeout(this.onSetReadyToProceed.bind(this), 750)
     }
 
@@ -355,6 +403,7 @@ class Game
     leaveCity()
     {
         this.state = STATE_MAP
+        this.highlightNextCity()
         this.setScreen("map")
         this.paused = false
     }
@@ -386,6 +435,11 @@ class Game
         // lowering the divert on each frame
         this.divertAngle = stepn(this.divertAngle, 0, 0.005 * dtt)
         
+        if (this.ticks % 60 == 1)
+        {
+            this.highlightNextCity()
+        }
+
         if (_input.keysPressed['a'])
         {
             this.objTargetArrow.angle -= 0.015 * dtt
@@ -542,6 +596,8 @@ class Game
         window.addEventListener("click", this.onClick.bind(this))
         window.addEventListener("keypress", this.onClick.bind(this))
         window.addEventListener("resize", this.onResize.bind(this))
+        getElement("a-leave").addEventListener("click", this.leaveCity.bind(this))
+        getElement("a-trade").addEventListener("click", this.actionTrade.bind(this))
         this.onResize()
         this.createMap()
         this.initLevel()
