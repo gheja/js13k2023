@@ -109,7 +109,6 @@ class Minigame
         let s: string = ""
         let c: string
         let fails: number = 0
-        let total: number = 0
 
         for (let i=0; i<5; i++)
         {
@@ -137,7 +136,7 @@ class Minigame
             this.failRound()
         }
 
-        if (total >= 5)
+        if (this.winFailHistory.length >= 5)
         {
             this.winFailHistory = []
             this.winRound()
