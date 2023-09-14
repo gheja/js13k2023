@@ -148,7 +148,7 @@ class Minigame
             dot.tick(dt, dtt)
         }
 
-        this.dots.filter(function(a) { return !a.destroyed; })
+        this.dots = this.dots.filter(function(a) { return !a.destroyed; })
     }
 
     pressColumn(index: number)
