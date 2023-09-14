@@ -61,9 +61,9 @@ class Minigame
         {
             this.dots.push(new MinigameDot(2, 0, randFloat(1, 1), randFloat(100, 120)))
             this.dots.push(new MinigameDot(0, 1, randFloat(1, 1), randFloat(150, 170)))
-            this.dots.push(new MinigameDot(3, 2, randFloat(1, 1), randFloat(170, 200)))
+            this.dots.push(new MinigameDot(1, 2, randFloat(1, 1), randFloat(170, 200)))
             this.dots.push(new MinigameDot(0, arrayPick([ 1, 2 ]), randFloat(1, 1), randFloat(230, 250)))
-            this.dots.push(new MinigameDot(3, arrayPick([ 1, 2 ]), randFloat(1, 1), randFloat(280, 350)))
+            this.dots.push(new MinigameDot(1, arrayPick([ 1, 2 ]), randFloat(1, 1), randFloat(280, 350)))
             this.dots.push(new MinigameDot(0, arrayPick([ 1, 2 ]), randFloat(1, 1), randFloat(350, 400)))
             this.dots.push(new MinigameDot(2, 3, randFloat(1, 1), randFloat(100, 120)))
         }
