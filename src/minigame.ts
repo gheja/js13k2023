@@ -16,6 +16,7 @@ class Minigame
     public heartText: string
 
     public level: number = 0
+    public paused: boolean = true
 
     constructor()
     {
@@ -89,7 +90,8 @@ class Minigame
             this.dots.push(new MinigameDot(arrayPick([ 0, 1 ]),  arrayPick([ 0, 1, 2 ]), randFloat(1.5, 1.8), randFloat(500, 400)))
         }
 
-        this.rangeDom.style.animation = "mr-start 0.7s"
+        this.rangeDom.style.animation = "mr-start 0.7s forwards"
+        this.paused = false
     }
 
     tick(dt: number, dtt: number)
@@ -142,6 +144,11 @@ class Minigame
             this.winRound()
         }
         // ---
+        
+        if (this.paused)
+        {
+            return
+        }
 
         for (let dot of this.dots)
         {
@@ -149,6 +156,12 @@ class Minigame
         }
 
         this.dots = this.dots.filter(function(a) { return !a.destroyed; })
+
+        if (this.dots.length == 0)
+        {
+            this.rangeDom.style.animation = "mr-stop 0.7s forwards"
+            this.paused = true
+        }
     }
 
     pressColumn(index: number)
@@ -170,13 +183,13 @@ class Minigame
 
     winOne()
     {
-        this.rangeDom.style.animation = "mr-win 0.7s"
+        this.rangeDom.style.animation = "mr-win 0.7s forwards"
         this.winFailHistory.push("win")
     }
 
     failOne()
     {
-        this.rangeDom.style.animation = "mr-fail 0.7s"
+        this.rangeDom.style.animation = "mr-fail 0.7s forwards"
         this.winFailHistory.push("fail")
     }
 

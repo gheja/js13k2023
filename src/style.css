@@ -229,7 +229,6 @@ body
 {
     position: absolute;
     color: #666;
-    background: #ffffff44;
     font-size: 1rem;
     padding: 0.2em;
     width: 1em;
@@ -253,7 +252,7 @@ body
 .mr
 {
     position: absolute;
-    border-top: 0.1rem solid #ffffff33;
+    border-top: 0.1rem solid #00000022;
 }
 
 .mh
@@ -273,13 +272,13 @@ body
 
 .mh-new
 {
-    color: #ffffff33;
+    color: #00000022;
 }
 
 @keyframes mr-start
 {
-    0% { border-top-color: #000; }
-    100% { border-top-color: #ff0; }
+    0% { border-top-color: #ff0; }
+    100% { border-top-color: #ffffff33; }
 }
 
 @keyframes mr-fail
@@ -292,6 +291,12 @@ body
 {
     0% { border-top-color: #00ff0088; }
     100% { border-top-color: #ffffff33; }
+}
+
+@keyframes mr-stop
+{
+    0% { border-top-color: #ffffff33; }
+    100% { border-top-color: #00000022; }
 }
 
 /* debug */
